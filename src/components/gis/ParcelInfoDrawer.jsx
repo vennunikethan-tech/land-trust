@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { X, ArrowRight, MapPin, Ruler, User, ShieldCheck, AlertTriangle } from 'lucide-react';
 import StatusBadge from '../common/StatusBadge';
 
 export default function ParcelInfoDrawer({ parcel, onClose }) {
+  const location = useLocation();
+  const isOfficer = location.pathname.startsWith('/officer');
   if (!parcel) return null;
 
   return (
@@ -69,7 +71,7 @@ export default function ParcelInfoDrawer({ parcel, onClose }) {
       <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
         <span className="text-[10px] text-slate-400">GPS: {parcel.coordinates}</span>
         <Link
-          to={`/citizen/property/${parcel.id}`}
+          to={isOfficer ? `/officer/property/${parcel.id}` : `/citizen/property/${parcel.id}`}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#0f2744] hover:bg-[#1e3e62] text-white shadow-sm transition-all hover:gap-2"
         >
           <span>View Land Profile</span>

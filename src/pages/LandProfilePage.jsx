@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
   CheckCircle2, 
@@ -32,6 +32,8 @@ import { reportService } from '../services/reportService';
 export default function LandProfilePage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isOfficer = location.pathname.startsWith('/officer');
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -84,10 +86,10 @@ export default function LandProfilePage() {
         <h3 className="text-lg font-bold text-slate-900">Land Record Not Found</h3>
         <p className="text-xs text-slate-500">The requested parcel ID "{id}" does not exist in the prototype dataset.</p>
         <button
-          onClick={() => navigate('/citizen/search')}
+          onClick={() => navigate(isOfficer ? '/officer/records' : '/citizen/search')}
           className="px-4 py-2 bg-[#0f2744] text-white text-xs font-bold rounded-xl"
         >
-          Return to Search
+          {isOfficer ? 'Return to Records' : 'Return to Search'}
         </button>
       </div>
     );
@@ -99,11 +101,11 @@ export default function LandProfilePage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <button
-            onClick={() => navigate('/citizen/search')}
+            onClick={() => navigate(isOfficer ? '/officer/records' : '/citizen/search')}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 mb-2 transition-colors"
           >
             <ArrowLeft size={14} />
-            <span>Back to Search</span>
+            <span>{isOfficer ? 'Back to Land Records' : 'Back to Search'}</span>
           </button>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold font-display text-slate-900">
@@ -177,10 +179,10 @@ export default function LandProfilePage() {
             </div>
           </div>
           <Link
-            to="/citizen/verification"
+            to={isOfficer ? "/officer/flagged" : "/citizen/verification"}
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 bg-white px-3 py-1.5 rounded-lg border border-slate-300 shadow-xs hover:bg-slate-50 transition-colors"
           >
-            <span>View Full Pipeline</span>
+            <span>{isOfficer ? 'View Flagged Discrepancies' : 'View Full Pipeline'}</span>
             <ExternalLink size={12} />
           </Link>
         </div>

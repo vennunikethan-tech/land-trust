@@ -137,10 +137,18 @@ export default function OfficerRecordsPage() {
                   <td className="py-3.5 px-4 font-mono text-slate-700 font-semibold">
                     {prop.registration.marketValue}
                   </td>
-                  <td className="py-3.5 px-4 text-right">
+                  <td className="py-3.5 px-4 text-right space-x-1.5">
                     <Link
-                      to={`/citizen/property/${prop.id}`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0f2744] hover:bg-[#1e3e62] text-white transition-colors"
+                      to={`/officer/map?parcel=${prop.id}`}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
+                      title="Inspect on Officer GIS Map"
+                    >
+                      <MapPin size={12} className="text-emerald-600" />
+                      <span>Map</span>
+                    </Link>
+                    <Link
+                      to={`/officer/property/${prop.id}`}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#0f2744] hover:bg-[#1e3e62] text-white transition-colors"
                     >
                       <Eye size={12} />
                       <span>Profile</span>

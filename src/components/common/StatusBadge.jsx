@@ -8,19 +8,19 @@ export default function StatusBadge({ status, size = 'md', className = '' }) {
   let Icon = Info;
   let label = status;
 
-  if (norm.includes('verif') || norm === 'success' || norm === 'passed' || norm === 'completed') {
+  if (norm.includes('verif') || norm.includes('seal') || norm.includes('approve') || norm === 'success' || norm === 'passed' || norm === 'completed') {
     styles = 'bg-emerald-50 text-emerald-700 border-emerald-200';
     Icon = CheckCircle2;
     label = status || 'Verified';
-  } else if (norm.includes('warn') || norm.includes('mismatch') || norm.includes('flag')) {
+  } else if (norm.includes('warn') || norm.includes('mismatch') || norm.includes('flag') || norm.includes('investig')) {
     styles = 'bg-amber-50 text-amber-700 border-amber-200';
     Icon = AlertTriangle;
     label = status || 'Warning';
-  } else if (norm.includes('issue') || norm.includes('critical') || norm.includes('prohibit') || norm.includes('encroach')) {
+  } else if (norm.includes('issue') || norm.includes('critical') || norm.includes('prohibit') || norm.includes('encroach') || norm.includes('enforce')) {
     styles = 'bg-red-50 text-red-700 border-red-200';
     Icon = XCircle;
     label = status || 'Issue';
-  } else if (norm.includes('pend') || norm.includes('review') || norm.includes('progress')) {
+  } else if (norm.includes('pend') || norm.includes('review') || norm.includes('progress') || norm.includes('dispatch') || norm.includes('notice')) {
     styles = 'bg-blue-50 text-blue-700 border-blue-200';
     Icon = Clock;
     label = status || 'Pending';

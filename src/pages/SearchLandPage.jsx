@@ -292,10 +292,15 @@ export default function SearchLandPage() {
                 </div>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[10px] text-slate-400 font-mono">
-                  {prop.coordinates}
-                </span>
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                <Link
+                  to={`/citizen/map?parcel=${prop.id}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
+                  title="Inspect boundary on GIS Map"
+                >
+                  <MapPin size={13} className="text-emerald-600" />
+                  <span>View on Map</span>
+                </Link>
                 <Link
                   to={`/citizen/property/${prop.id}`}
                   className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#0f2744] hover:bg-[#1e3e62] text-white shadow-xs transition-all group-hover:gap-2"
@@ -350,12 +355,20 @@ export default function SearchLandPage() {
                     <td className="py-3 px-4">
                       <StatusBadge status={prop.verificationStatus} />
                     </td>
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right space-x-1.5">
+                      <Link
+                        to={`/citizen/map?parcel=${prop.id}`}
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
+                        title="Inspect on GIS Map"
+                      >
+                        <MapPin size={12} className="text-emerald-600" />
+                        <span>Map</span>
+                      </Link>
                       <Link
                         to={`/citizen/property/${prop.id}`}
                         className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0f2744] hover:bg-[#1e3e62] text-white transition-colors"
                       >
-                        <span>View Details</span>
+                        <span>Details</span>
                         <ArrowRight size={12} />
                       </Link>
                     </td>

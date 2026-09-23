@@ -1,8 +1,12 @@
 import React from 'react';
-import GisMapPlaceholder from '../components/gis/GisMapPlaceholder';
+import { useSearchParams } from 'react-router-dom';
+import GISMap from '../components/gis/GISMap';
 import { ShieldAlert, Map, AlertTriangle, Layers } from 'lucide-react';
 
 export default function OfficerGisPage() {
+  const [searchParams] = useSearchParams();
+  const initialParcelId = searchParams.get('parcel') || searchParams.get('survey');
+
   return (
     <div className="space-y-6 animate-fade-in pb-12">
       {/* Header */}
@@ -29,8 +33,9 @@ export default function OfficerGisPage() {
         </div>
       </div>
 
-      {/* GIS Canvas */}
-      <GisMapPlaceholder
+      {/* Real Interactive GIS Leaflet Canvas */}
+      <GISMap
+        initialParcelId={initialParcelId}
         title="REVENUE GIS MONITORING DESK"
         subtitle="Active Enforcement Zone: Serilingampally Division (CORS & Drone Survey Network)"
       />

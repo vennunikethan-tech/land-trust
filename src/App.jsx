@@ -52,6 +52,7 @@ export default function App() {
         <Route path="map" element={<OfficerGisPage />} />
         <Route path="verification" element={<OfficerVerificationPage />} />
         <Route path="flagged" element={<FlaggedPropertyPage />} />
+        <Route path="property/:id" element={<LandProfilePage />} />
         <Route path="reports" element={<OfficerReportsPage />} />
         <Route path="audit" element={<AuditTrailPage />} />
       </Route>

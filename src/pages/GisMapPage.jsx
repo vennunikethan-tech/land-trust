@@ -1,8 +1,12 @@
 import React from 'react';
-import GisMapPlaceholder from '../components/gis/GisMapPlaceholder';
-import { Layers, Info, MapPin } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import GISMap from '../components/gis/GISMap';
+import { Layers, Info, MapPin, Globe2 } from 'lucide-react';
 
 export default function GisMapPage() {
+  const [searchParams] = useSearchParams();
+  const initialParcelId = searchParams.get('parcel') || searchParams.get('survey');
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
@@ -17,20 +21,21 @@ export default function GisMapPage() {
             Cadastral GIS Map Canvas
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Georeferenced cadastral boundaries, land use zoning, and regulatory buffer overlays.
+            Interactive Leaflet cadastral map with georeferenced boundaries, land use zoning, and regulatory buffer overlays.
           </p>
         </div>
 
-        {/* Phase 1 Notice Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 text-xs font-semibold self-start sm:self-auto">
-          <Info size={14} className="text-amber-600" />
-          <span>Phase 1 UI Vector Mesh • Leaflet & PostGIS Ready</span>
+        {/* Phase 2 Interactive Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold self-start sm:self-auto">
+          <Globe2 size={14} className="text-emerald-600" />
+          <span>Phase 2: Leaflet & GeoJSON Cadastral Engine</span>
         </div>
       </div>
 
-      {/* The GIS Map Canvas with 7 Layers and Inspector */}
-      <GisMapPlaceholder
-        title="GIS MAP"
+      {/* Interactive GIS Leaflet Map Component */}
+      <GISMap
+        initialParcelId={initialParcelId}
+        title="CADASTRAL GIS MAP"
         subtitle="Mandal: Serilingampally & Rajendranagar • OGC Compliant Cadastral Grid"
       />
 

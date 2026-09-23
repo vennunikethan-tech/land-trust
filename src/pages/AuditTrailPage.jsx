@@ -39,7 +39,17 @@ export default function AuditTrailPage() {
       log.property.toLowerCase().includes(searchTerm.toLowerCase()) ||
       log.notes.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesFilter = filterAction === 'ALL' || log.action.toLowerCase().includes(filterAction.toLowerCase());
+    const act = log.action.toLowerCase();
+    let matchesFilter = true;
+    if (filterAction === 'Verified') {
+      matchesFilter = act.includes('verif') || act.includes('approv');
+    } else if (filterAction === 'Survey') {
+      matchesFilter = act.includes('survey') || act.includes('drone') || act.includes('georeference') || act.includes('dgps');
+    } else if (filterAction === 'Prohibition') {
+      matchesFilter = act.includes('prohibit') || act.includes('enforce') || act.includes('22-a');
+    } else if (filterAction === 'Notice') {
+      matchesFilter = act.includes('notice');
+    }
 
     return matchesSearch && matchesFilter;
   });

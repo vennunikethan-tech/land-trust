@@ -538,6 +538,358 @@ export const mockProperties = [
       { label: "Prohibited Lands (Sec 22-A) Check", status: "Verified", detail: "Correctly classified under Section 22-A(1)(a)" },
       { label: "Local Body Property Tax Dues", status: "Verified", detail: "Statutorily exempt" },
     ],
+  },
+
+  {
+    id: "PROP-HYD-007",
+    surveyNumber: "92/1",
+    propertyId: "TS-RR-SER-GAC-000921",
+    village: "Gachibowli",
+    mandal: "Serilingampally",
+    district: "Hyderabad",
+    state: "Telangana",
+    area: "1.20 Acres",
+    areaInSqYards: 5808,
+    landType: "Agricultural",
+    coordinates: "17.4515° N, 78.3855° E",
+    verificationStatus: "Pending",
+    statusReason: "Tax Assessment Reconciliation Awaited from GHMC Circle Office.",
+
+    ownership: {
+      ownerName: "B. Venkatesham",
+      aadhaarHash: "XXXX-XXXX-1934",
+      pattadarPassbookNo: "T928374102",
+      ownershipStatus: "Pattadar Title Holder",
+      rorStatus: "Mutation Under Scrutiny",
+      relation: "S/o B. Narsimha",
+      acquisitionDate: "15 Apr 2017",
+      acquisitionType: "Ancestral Succession",
+    },
+
+    cadastral: {
+      parcelId: "CAD-2026-GAC-0921",
+      boundaryStatus: "Boundaries Demarcated",
+      recordedArea: "1.20 Acres",
+      northBoundary: "Survey No. 92/2",
+      southBoundary: "Survey No. 123/4",
+      eastBoundary: "Survey No. 93",
+      westBoundary: "Survey No. 91",
+      surveyorAgency: "Mandal Surveyor Office",
+      surveyDate: "10 Mar 2024",
+    },
+
+    registration: {
+      sroOffice: "SRO Serilingampally",
+      documentNumber: "Doc No. 2210/2017",
+      registrationDate: "20 Apr 2017",
+      registrationStatus: "Encumbrance Free",
+      transactionStatus: "Clear Title / Verification Underway",
+      registeredArea: "1.20 Acres",
+      marketValue: "₹ 4,80,00,000",
+    },
+
+    tax: {
+      taxStatus: "Pending Verification",
+      assessmentNumber: "TX-2025-GHMC-921",
+      annualTax: "₹ 4,800",
+      pendingDues: "₹ 4,800",
+      lastPaymentDate: "14 Feb 2024",
+      receiptNumber: "RCP-2024-55102",
+    },
+
+    restrictions: {
+      hasRestrictions: false,
+      landUseRestrictions: "Peri-Urban Agricultural Zone",
+      governmentRestrictions: "None",
+      planningRestrictions: "No buffer violations",
+      prohibitedListStatus: "Clear",
+    },
+
+    building: {
+      permissionStatus: "Farmhouse DTCP Eligible",
+      zoneType: "Agricultural Zone A-1",
+      maxPermissibleFSI: "0.50",
+      setbackRequirement: "6 Meters Frontage",
+    },
+
+    utilities: {
+      roadAccess: "12m Panchayat Bitumen Road",
+      waterConnection: "Ground Water Borewell Available",
+      electricityConnection: "3-Phase Agricultural Grid",
+      drainageStatus: "Natural Outfall Drain",
+    },
+
+    checkpoints: [
+      { label: "Cadastral Boundary vs Drone GIS", status: "Verified", detail: "Boundaries match revenue map" },
+      { label: "Record of Rights (RoR) vs SRO Deed", status: "Verified", detail: "Transferee name matches" },
+      { label: "Registered Area vs Cadastral Area", status: "Verified", detail: "1.20 Acres consistent" },
+      { label: "Prohibited Lands (Sec 22-A) Check", status: "Verified", detail: "Clear of restrictions" },
+      { label: "Local Body Property Tax Dues", status: "Pending", detail: "Awaiting local body electronic receipt" },
+    ],
+  },
+
+  {
+    id: "PROP-HYD-008",
+    surveyNumber: "101/A",
+    propertyId: "TS-RR-SER-MAD-001011",
+    village: "Madhapur",
+    mandal: "Serilingampally",
+    district: "Hyderabad",
+    state: "Telangana",
+    area: "2.10 Acres",
+    areaInSqYards: 10164,
+    landType: "Residential",
+    coordinates: "17.4520° N, 78.3885° E",
+    verificationStatus: "Verified",
+    statusReason: "Clear title with matching RoR mutation and digital passbook endorsement.",
+
+    ownership: {
+      ownerName: "S. Mohan Rao",
+      aadhaarHash: "XXXX-XXXX-9102",
+      pattadarPassbookNo: "T101928374",
+      ownershipStatus: "Sole Freehold Owner",
+      rorStatus: "Mutation Completed & Active",
+      relation: "S/o S. Narayana",
+      acquisitionDate: "05 Jun 2016",
+      acquisitionType: "Registered Sale Deed",
+    },
+
+    cadastral: {
+      parcelId: "CAD-2026-MAD-0101",
+      boundaryStatus: "DGPS Georeferenced",
+      recordedArea: "2.10 Acres",
+      northBoundary: "Survey No. 100",
+      southBoundary: "Survey No. 204/3",
+      eastBoundary: "Survey No. 102/B",
+      westBoundary: "Survey No. 92/1",
+      surveyorAgency: "Revenue Divisional Surveyor",
+      surveyDate: "18 Aug 2024",
+    },
+
+    registration: {
+      sroOffice: "SRO Serilingampally",
+      documentNumber: "Doc No. 4410/2016",
+      registrationDate: "10 Jun 2016",
+      registrationStatus: "Encumbrance Free",
+      transactionStatus: "Clear Title / Certificate Issued",
+      registeredArea: "2.10 Acres",
+      marketValue: "₹ 16,80,00,000",
+    },
+
+    tax: {
+      taxStatus: "Paid & Up to Date",
+      assessmentNumber: "TX-2025-GHMC-101",
+      annualTax: "₹ 18,500",
+      pendingDues: "₹ 0.00",
+      lastPaymentDate: "15 May 2025",
+      receiptNumber: "RCP-2025-10192",
+    },
+
+    restrictions: {
+      hasRestrictions: false,
+      landUseRestrictions: "Residential Zone R-1",
+      governmentRestrictions: "None",
+      planningRestrictions: "No buffer overlap",
+      prohibitedListStatus: "Clear",
+    },
+
+    building: {
+      permissionStatus: "HMDA Layout Sanctioned",
+      zoneType: "Residential Urban R-1",
+      maxPermissibleFSI: "1.50",
+      setbackRequirement: "6 Meters All Around",
+    },
+
+    utilities: {
+      roadAccess: "18m Sector Master Plan Road",
+      waterConnection: "HMWSSB Water Grid Active",
+      electricityConnection: "TSSPDCL Dedicated Transformer",
+      drainageStatus: "Connected to Municipal Sewer",
+    },
+
+    checkpoints: [
+      { label: "Cadastral Boundary vs Drone GIS", status: "Verified", detail: "Boundaries align within 0.01m" },
+      { label: "Record of Rights (RoR) vs SRO Deed", status: "Verified", detail: "100% Concordant" },
+      { label: "Registered Area vs Cadastral Area", status: "Verified", detail: "2.10 Acres exactly matches" },
+      { label: "Prohibited Lands (Sec 22-A) Check", status: "Verified", detail: "No encumbrance found" },
+      { label: "Local Body Property Tax Dues", status: "Verified", detail: "Cleared for current fiscal" },
+    ],
+  },
+
+  {
+    id: "PROP-HYD-009",
+    surveyNumber: "102/B",
+    propertyId: "TS-RR-SER-MAD-001022",
+    village: "Madhapur",
+    mandal: "Serilingampally",
+    district: "Hyderabad",
+    state: "Telangana",
+    area: "1.45 Acres",
+    areaInSqYards: 7018,
+    landType: "Commercial",
+    coordinates: "17.4525° N, 78.3920° E",
+    verificationStatus: "Warning",
+    statusReason: "Subdivision sketch alignment pending with Mandal Revenue Surveyor.",
+
+    ownership: {
+      ownerName: "V. Lakshmi Prasanna",
+      aadhaarHash: "XXXX-XXXX-4581",
+      pattadarPassbookNo: "T102837491",
+      ownershipStatus: "Co-Owner Title",
+      rorStatus: "Pending Subdivision Record",
+      relation: "D/o V. Ramaiah",
+      acquisitionDate: "12 Oct 2020",
+      acquisitionType: "Gift Settlement Deed",
+    },
+
+    cadastral: {
+      parcelId: "CAD-2026-MAD-0102",
+      boundaryStatus: "Resurvey Scheduled",
+      recordedArea: "1.45 Acres",
+      northBoundary: "Survey No. 99",
+      southBoundary: "Survey No. 88/1B",
+      eastBoundary: "Lake Buffer Boundary",
+      westBoundary: "Survey No. 101/A",
+      surveyorAgency: "District Surveyor Team",
+      surveyDate: "20 Jan 2025",
+    },
+
+    registration: {
+      sroOffice: "SRO Serilingampally",
+      documentNumber: "Doc No. 7102/2020",
+      registrationDate: "15 Oct 2020",
+      registrationStatus: "Encumbrance Free",
+      transactionStatus: "Subdivision Notice Emitted",
+      registeredArea: "1.45 Acres",
+      marketValue: "₹ 11,60,00,000",
+    },
+
+    tax: {
+      taxStatus: "Paid & Up to Date",
+      assessmentNumber: "TX-2025-GHMC-102",
+      annualTax: "₹ 14,200",
+      pendingDues: "₹ 0.00",
+      lastPaymentDate: "11 Aug 2025",
+      receiptNumber: "RCP-2025-10244",
+    },
+
+    restrictions: {
+      hasRestrictions: false,
+      landUseRestrictions: "Commercial Mixed Zone",
+      governmentRestrictions: "None",
+      planningRestrictions: "Buffer demarcation required",
+      prohibitedListStatus: "Clear",
+    },
+
+    building: {
+      permissionStatus: "Awaiting Joint Boundary Verification",
+      zoneType: "Commercial Zone C-2",
+      maxPermissibleFSI: "1.75",
+      setbackRequirement: "9 Meters Frontage",
+    },
+
+    utilities: {
+      roadAccess: "15m Municipal Road",
+      waterConnection: "HMWSSB Water Grid",
+      electricityConnection: "Commercial 3-Phase",
+      drainageStatus: "Municipal Sewer Connection",
+    },
+
+    checkpoints: [
+      { label: "Cadastral Boundary vs Drone GIS", status: "Warning", detail: "Subdivision sketch needs alignment" },
+      { label: "Record of Rights (RoR) vs SRO Deed", status: "Verified", detail: "Title documents match" },
+      { label: "Registered Area vs Cadastral Area", status: "Verified", detail: "1.45 Acres confirmed" },
+      { label: "Prohibited Lands (Sec 22-A) Check", status: "Verified", detail: "No restrictive orders" },
+      { label: "Local Body Property Tax Dues", status: "Verified", detail: "Zero pending arrears" },
+    ],
+  },
+
+  {
+    id: "PROP-HYD-010",
+    surveyNumber: "103/C",
+    propertyId: "TS-RR-SER-MAD-001033",
+    village: "Madhapur",
+    mandal: "Serilingampally",
+    district: "Hyderabad",
+    state: "Telangana",
+    area: "3.00 Acres",
+    areaInSqYards: 14520,
+    landType: "Agricultural",
+    coordinates: "17.4475° N, 78.3815° E",
+    verificationStatus: "Pending",
+    statusReason: "DGPS georeference submission in progress by District Survey Wing.",
+
+    ownership: {
+      ownerName: "P. Raghunath Yadav",
+      aadhaarHash: "XXXX-XXXX-8820",
+      pattadarPassbookNo: "T103728194",
+      ownershipStatus: "Pattadar Title Holder",
+      rorStatus: "Under Digital Verification",
+      relation: "S/o P. Mallaiah",
+      acquisitionDate: "18 Aug 2012",
+      acquisitionType: "Ancestral Partition",
+    },
+
+    cadastral: {
+      parcelId: "CAD-2026-MAD-0103",
+      boundaryStatus: "Drone Survey Field Capture Complete",
+      recordedArea: "3.00 Acres",
+      northBoundary: "Survey No. 90",
+      southBoundary: "Survey No. 45/2A",
+      eastBoundary: "Survey No. 123/4",
+      westBoundary: "Survey No. 104",
+      surveyorAgency: "State Drone Survey Cell",
+      surveyDate: "14 Feb 2026",
+    },
+
+    registration: {
+      sroOffice: "SRO Serilingampally",
+      documentNumber: "Doc No. 5103/2012",
+      registrationDate: "22 Aug 2012",
+      registrationStatus: "Encumbrance Free",
+      transactionStatus: "Digital Verification in Queue",
+      registeredArea: "3.00 Acres",
+      marketValue: "₹ 12,00,00,000",
+    },
+
+    tax: {
+      taxStatus: "Paid",
+      assessmentNumber: "TX-2025-GHMC-103",
+      annualTax: "₹ 6,500",
+      pendingDues: "₹ 0.00",
+      lastPaymentDate: "02 Jun 2025",
+      receiptNumber: "RCP-2025-10381",
+    },
+
+    restrictions: {
+      hasRestrictions: false,
+      landUseRestrictions: "Agricultural Periphery Zone",
+      governmentRestrictions: "None",
+      planningRestrictions: "Standard agricultural setbacks",
+      prohibitedListStatus: "Clear",
+    },
+
+    building: {
+      permissionStatus: "Farmhouse Sanction Eligible",
+      zoneType: "Agricultural Reserve",
+      maxPermissibleFSI: "0.50",
+      setbackRequirement: "6 Meters All Sides",
+    },
+
+    utilities: {
+      roadAccess: "12m Panchayat Bitumen Road",
+      waterConnection: "Agricultural Canal & Borewell",
+      electricityConnection: "Agricultural Feeder Connected",
+      drainageStatus: "Natural Outfall Drain",
+    },
+
+    checkpoints: [
+      { label: "Cadastral Boundary vs Drone GIS", status: "Pending", detail: "DGPS baseline awaiting final officer signoff" },
+      { label: "Record of Rights (RoR) vs SRO Deed", status: "Verified", detail: "Transferee and RoR match" },
+      { label: "Registered Area vs Cadastral Area", status: "Verified", detail: "3.00 Acres reconciled" },
+      { label: "Prohibited Lands (Sec 22-A) Check", status: "Verified", detail: "Clean patta" },
+      { label: "Local Body Property Tax Dues", status: "Verified", detail: "Tax paid" },
+    ],
   }
 ];
 

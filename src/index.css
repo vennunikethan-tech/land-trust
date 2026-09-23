@@ -49,3 +49,62 @@
     linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
 }
+
+/* Leaflet UI Overrides & Stacking */
+.leaflet-container {
+  font-family: inherit;
+  width: 100%;
+  height: 100%;
+  z-index: 1 !important;
+}
+
+.leaflet-pane {
+  z-index: 10 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 15 !important;
+}
+
+/* Custom Leaflet Tooltip */
+.cadastral-parcel-tooltip {
+  background: rgba(15, 23, 42, 0.95) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(51, 65, 85, 0.8) !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.cadastral-parcel-tooltip::before {
+  border-top-color: rgba(15, 23, 42, 0.95) !important;
+}
+
+.gis-layer-tooltip {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Custom Leaflet Popup */
+.land-trust-gis-popup .leaflet-popup-content-wrapper {
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 0 !important;
+}
+
+.land-trust-gis-popup .leaflet-popup-content {
+  margin: 12px 14px !important;
+  line-height: 1.4 !important;
+}
+
+.land-trust-gis-popup .leaflet-popup-tip {
+  background: white !important;
+}
