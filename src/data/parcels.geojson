@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "name": "LandTrust_CadastralParcels_Serilingampally",
+  "name": "LandTrust_Distributed_Demo_Parcels",
   "crs": {
     "type": "name",
     "properties": {
@@ -12,25 +12,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-001",
+        "parcelId": "DEMO-SHA-0123",
         "surveyNumber": "123/4",
-        "village": "Madhapur",
-        "mandal": "Serilingampally",
-        "district": "Hyderabad",
+        "village": "Shamshabad",
+        "mandal": "Rajendranagar",
+        "district": "Rangareddy",
         "area": "2.5 Acres",
-        "landType": "Agricultural",
-        "owner": "Venkata Rao Nallamothu",
+        "landType": "Farm Land",
+        "owner": "Venkata Rao N. (Simulated Demo)",
         "verificationStatus": "Verified",
-        "notes": "Boundary cross-reconciled with drone GIS. Zero discrepancies."
+        "notes": "Simulated Demo: Open cultivated farm land in southern outskirts. Clear title."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3850, 17.4480],
-            [78.3880, 17.4485],
-            [78.3875, 17.4455],
-            [78.3845, 17.4450],
-            [78.3850, 17.4480]
+            [78.3738, 17.2760],
+            [78.3762, 17.2758],
+            [78.3758, 17.2740],
+            [78.3735, 17.2742],
+            [78.3738, 17.2760]
           ]
         ]
       }
@@ -39,25 +40,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-002",
+        "parcelId": "DEMO-NAN-0204",
         "surveyNumber": "204/3",
         "village": "Nanakramguda",
         "mandal": "Serilingampally",
         "district": "Hyderabad",
         "area": "3.2 Acres",
-        "landType": "Commercial / Mixed",
-        "owner": "K. Rajeshwar Reddy",
+        "landType": "Mixed Use",
+        "owner": "K. Rajeshwar (Simulated Demo)",
         "verificationStatus": "Warning",
-        "notes": "Area mismatch detected (+0.70 Ac difference between RoR and SRO deed)."
+        "notes": "Simulated Demo: Developing mixed-use corridor. Discrepancy between RoR (2.5 Ac) and Deed (3.2 Ac)."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3880, 17.4485],
-            [78.3915, 17.4490],
-            [78.3910, 17.4460],
-            [78.3875, 17.4455],
-            [78.3880, 17.4485]
+            [78.3408, 17.4190],
+            [78.3432, 17.4188],
+            [78.3428, 17.4170],
+            [78.3405, 17.4172],
+            [78.3408, 17.4190]
           ]
         ]
       }
@@ -66,25 +68,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-003",
+        "parcelId": "DEMO-GAC-0045",
         "surveyNumber": "45/2A",
         "village": "Gachibowli",
         "mandal": "Serilingampally",
         "district": "Hyderabad",
         "area": "1.75 Acres",
         "landType": "Commercial",
-        "owner": "Padmavathi Infrastructure LLP",
+        "owner": "Padmavathi Infraworks (Simulated Demo Entity)",
         "verificationStatus": "Verified",
-        "notes": "High-value commercial IT corridor title cleared with HMDA multi-tier validation."
+        "notes": "Simulated Demo: High-density commercial financial district IT hub."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3845, 17.4450],
-            [78.3875, 17.4455],
-            [78.3870, 17.4430],
-            [78.3840, 17.4425],
-            [78.3845, 17.4450]
+            [78.3470, 17.4328],
+            [78.3490, 17.4328],
+            [78.3490, 17.4312],
+            [78.3470, 17.4312],
+            [78.3470, 17.4328]
           ]
         ]
       }
@@ -93,25 +96,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-004",
+        "parcelId": "DEMO-SHA-0088",
         "surveyNumber": "88/1B",
         "village": "Shamshabad",
         "mandal": "Rajendranagar",
         "district": "Rangareddy",
         "area": "4.10 Acres",
-        "landType": "Agricultural / Buffer Zone",
-        "owner": "Mohd. Abdul Qadeer",
+        "landType": "Agricultural",
+        "owner": "M. A. Qadeer (Simulated Demo)",
         "verificationStatus": "Issue",
-        "notes": "Encroachment alert: Overlap with government protected water catchment buffer (GO 111 zone)."
+        "notes": "Simulated Demo: Encroachment alert overlapping protected lake catchment buffer zone (GO 111)."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3915, 17.4490],
-            [78.3955, 17.4495],
-            [78.3950, 17.4460],
-            [78.3910, 17.4460],
-            [78.3915, 17.4490]
+            [78.3965, 17.2592],
+            [78.3995, 17.2590],
+            [78.4000, 17.2568],
+            [78.3968, 17.2570],
+            [78.3965, 17.2592]
           ]
         ]
       }
@@ -120,25 +124,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-005",
+        "parcelId": "DEMO-KON-0156",
         "surveyNumber": "156/A",
         "village": "Kondapur",
         "mandal": "Serilingampally",
         "district": "Hyderabad",
         "area": "0.85 Acres",
         "landType": "Residential",
-        "owner": "Ananya Sharma & Ramesh Sharma",
+        "owner": "Ananya Sharma & Co. (Simulated Demo)",
         "verificationStatus": "Verified",
-        "notes": "Regularized residential layout with GHMC and RERA clearances."
+        "notes": "Simulated Demo: Developed urban residential layout in northern suburban corridor."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3875, 17.4455],
-            [78.3910, 17.4460],
-            [78.3905, 17.4435],
-            [78.3870, 17.4430],
-            [78.3875, 17.4455]
+            [78.3574, 17.4686],
+            [78.3586, 17.4686],
+            [78.3586, 17.4674],
+            [78.3574, 17.4674],
+            [78.3574, 17.4686]
           ]
         ]
       }
@@ -147,25 +152,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-006",
+        "parcelId": "DEMO-BUD-0310",
         "surveyNumber": "310/2",
         "village": "Budvel",
         "mandal": "Rajendranagar",
         "district": "Rangareddy",
         "area": "5.00 Acres",
         "landType": "Institutional / Public Utility",
-        "owner": "State Infrastructure & Land Corporation",
+        "owner": "State Infrastructure Reserve (Simulated Demo)",
         "verificationStatus": "Verified",
-        "notes": "State educational public facility reserve recorded in Government Land Register."
+        "notes": "Simulated Demo: Broad institutional campus reserve in Budvel knowledge corridor."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3910, 17.4460],
-            [78.3950, 17.4460],
-            [78.3945, 17.4425],
-            [78.3905, 17.4435],
-            [78.3910, 17.4460]
+            [78.4095, 17.3225],
+            [78.4128, 17.3220],
+            [78.4122, 17.3195],
+            [78.4090, 17.3200],
+            [78.4095, 17.3225]
           ]
         ]
       }
@@ -174,25 +180,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-007",
+        "parcelId": "DEMO-GAN-0092",
         "surveyNumber": "92/1",
-        "village": "Gachibowli",
-        "mandal": "Serilingampally",
-        "district": "Hyderabad",
+        "village": "Gandipet",
+        "mandal": "Gandipet",
+        "district": "Rangareddy",
         "area": "1.20 Acres",
         "landType": "Agricultural",
-        "owner": "B. Venkatesham",
+        "owner": "B. Venkatesham (Simulated Demo)",
         "verificationStatus": "Pending",
-        "notes": "Tax assessment and local body electronic clearance pending."
+        "notes": "Simulated Demo: Semi-rural agricultural holding; field verification audit in queue."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3855, 17.4515],
-            [78.3885, 17.4520],
-            [78.3880, 17.4485],
-            [78.3850, 17.4480],
-            [78.3855, 17.4515]
+            [78.3190, 17.3658],
+            [78.3210, 17.3658],
+            [78.3210, 17.3642],
+            [78.3190, 17.3642],
+            [78.3190, 17.3658]
           ]
         ]
       }
@@ -201,25 +208,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-008",
+        "parcelId": "DEMO-MAD-0101",
         "surveyNumber": "101/A",
         "village": "Madhapur",
         "mandal": "Serilingampally",
         "district": "Hyderabad",
         "area": "2.10 Acres",
         "landType": "Residential",
-        "owner": "S. Mohan Rao",
+        "owner": "S. Mohan Rao (Simulated Demo)",
         "verificationStatus": "Verified",
-        "notes": "Clear patta passbook with matching RoR mutation and survey boundaries."
+        "notes": "Simulated Demo: Low-rise residential enclave near Durgam Cheruvu lake periphery."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3885, 17.4520],
-            [78.3920, 17.4525],
-            [78.3915, 17.4490],
-            [78.3880, 17.4485],
-            [78.3885, 17.4520]
+            [78.3950, 17.4428],
+            [78.3972, 17.4426],
+            [78.3968, 17.4412],
+            [78.3948, 17.4414],
+            [78.3950, 17.4428]
           ]
         ]
       }
@@ -228,25 +236,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-009",
+        "parcelId": "DEMO-MAD-0102",
         "surveyNumber": "102/B",
         "village": "Madhapur",
         "mandal": "Serilingampally",
         "district": "Hyderabad",
         "area": "1.45 Acres",
         "landType": "Commercial",
-        "owner": "V. Lakshmi Prasanna",
+        "owner": "V. Lakshmi Prasanna (Simulated Demo)",
         "verificationStatus": "Warning",
-        "notes": "Subdivision sketch alignment pending with Mandal Revenue Surveyor."
+        "notes": "Simulated Demo: Commercial IT corridor sector; subdivision demarcation pending."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3920, 17.4525],
-            [78.3960, 17.4530],
-            [78.3955, 17.4495],
-            [78.3915, 17.4490],
-            [78.3920, 17.4525]
+            [78.3822, 17.4518],
+            [78.3838, 17.4516],
+            [78.3836, 17.4502],
+            [78.3820, 17.4504],
+            [78.3822, 17.4518]
           ]
         ]
       }
@@ -255,26 +264,26 @@
       "type": "Feature",
       "properties": {
         "propertyId": "PROP-HYD-010",
+        "parcelId": "DEMO-BUD-0103",
         "surveyNumber": "103/C",
-        "village": "Madhapur",
-        "mandal": "Serilingampally",
-        "district": "Hyderabad",
+        "village": "Budvel",
+        "mandal": "Rajendranagar",
+        "district": "Rangareddy",
         "area": "3.00 Acres",
-        "landType": "Agricultural",
-        "owner": "P. Raghunath Yadav",
+        "landType": "Farm Land",
+        "owner": "P. Raghunath Yadav (Simulated Demo)",
         "verificationStatus": "Pending",
-        "notes": "DGPS georeference submission in progress by District Survey Wing."
+        "notes": "Simulated Demo: Southern agricultural farm land parcel; DGPS baseline submission in progress."
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [78.3815, 17.4475],
-            [78.3850, 17.4480],
-            [78.3845, 17.4450],
-            [78.3840, 17.4425],
-            [78.3810, 17.4420],
-            [78.3815, 17.4475]
+            [78.3905, 17.3092],
+            [78.3935, 17.3090],
+            [78.3930, 17.3068],
+            [78.3900, 17.3070],
+            [78.3905, 17.3092]
           ]
         ]
       }

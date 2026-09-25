@@ -1,20 +1,17 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { MapContainer, TileLayer, ZoomControl, useMap, useMapEvents } from 'react-leaflet';
 import { 
   Search, 
   Layers, 
   MapPin, 
-  Compass, 
-  Maximize2, 
+  Globe2, 
+  Map as MapIcon, 
   Crosshair, 
-  Info, 
-  ShieldCheck, 
   X, 
-  ChevronRight,
-  Filter,
+  RotateCcw,
   CheckCircle2,
-  AlertTriangle,
-  RotateCcw
+  SlidersHorizontal,
+  Compass
 } from 'lucide-react';
 import parcelsGeoJson from '../../data/parcels.geojson';
 import ParcelLayer from './ParcelLayer';
@@ -23,6 +20,7 @@ import PropertyPopup from './PropertyPopup';
 import MapLegend from './MapLegend';
 import ParcelInfoDrawer from './ParcelInfoDrawer';
 import { mockProperties } from '../../data/properties';
+import { BASE_MAP_TYPES, BASE_MAPS, getBaseMapConfig } from '../../config/mapConfig';
 
 // Internal controller component for programmatic map pan/zoom & coordinate tracking
 function MapEventsController({ onMouseMoveCoords, flyTarget }) {
@@ -59,17 +57,22 @@ function MapEventsController({ onMouseMoveCoords, flyTarget }) {
 
 export default function GISMap({
   initialParcelId = null,
+  initialBaseMap = BASE_MAP_TYPES.SATELLITE,
   title = "CADASTRAL GIS REPOSITORY",
   subtitle = "Interactive Cadastral GIS (SIH26014 Digital Public Infrastructure)",
   className = "",
 }) {
-  // Layer toggles
+  // Base map selection: 'street' | 'satellite'
+  const [baseMap, setBaseMap] = useState(initialBaseMap);
+
+  // Independent layer stack toggles
   const [layers, setLayers] = useState({
     cadastral: true,
-    roads: true,
-    landUse: true,
-    waterBodies: true,
-    buildings: true,
+    surveyNumbers: true,
+    roads: false,
+    buildings: false,
+    waterBodies: false,
+    landUse: false,
   });
 
   // Selected parcel & popup state
@@ -83,22 +86,34 @@ export default function GISMap({
 
   // UI Panel visibility toggles
   const [showSidebar, setShowSidebar] = useState(true);
-  const [showLegend, setShowLegend] = useState(true);
-  const [mouseCoords, setMouseCoords] = useState("17.4475° N, 78.3885° E");
+  const [mouseCoords, setMouseCoords] = useState("17.3630° N, 78.3660° E");
 
-  // Initial default map center & bounds
-  const defaultCenter = [17.4475, 78.3885];
-  const defaultZoom = 15;
+  // Initial default regional map center & zoom overview
+  const defaultCenter = [17.363, 78.366];
+  const defaultZoom = 12;
 
-  // Find parcel feature helper
+  // Active base map configuration
+  const currentBaseMap = useMemo(() => getBaseMapConfig(baseMap), [baseMap]);
+
+  // Find parcel feature helper with exact-then-partial search
   const findParcelFeature = (idOrSurvey) => {
     if (!idOrSurvey) return null;
     const q = idOrSurvey.trim().toLowerCase();
-    return parcelsGeoJson.features.find((f) => {
+    
+    // 1. Exact match on propertyId or surveyNumber
+    const exact = parcelsGeoJson.features.find((f) => {
       const p = f.properties;
       return (
         p.propertyId?.toLowerCase() === q ||
-        p.surveyNumber?.toLowerCase() === q ||
+        p.surveyNumber?.toLowerCase() === q
+      );
+    });
+    if (exact) return exact;
+
+    // 2. Partial match fallback
+    return parcelsGeoJson.features.find((f) => {
+      const p = f.properties;
+      return (
         p.propertyId?.toLowerCase().includes(q) ||
         p.surveyNumber?.toLowerCase().includes(q)
       );
@@ -125,7 +140,7 @@ export default function GISMap({
     return [avgLat, avgLng];
   };
 
-  // Handle external or prop-driven parcel focus (e.g. ?parcel=PROP-HYD-002)
+  // Handle external or prop-driven parcel focus (e.g. ?parcel=PROP-HYD-002 or ?survey=123/4)
   useEffect(() => {
     if (initialParcelId) {
       const feat = findParcelFeature(initialParcelId);
@@ -186,16 +201,22 @@ export default function GISMap({
 
   return (
     <div className={`relative w-full h-[650px] lg:h-[750px] rounded-2xl overflow-hidden border border-slate-300 bg-[#eef2f6] shadow-md select-none flex flex-col font-sans ${className}`}>
+      
       {/* Top Floating Control Bar */}
       <div className="absolute top-4 left-4 right-4 z-20 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
-        {/* Title Badge */}
+        
+        {/* Title Badge & Active Base Map Status */}
         <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-slate-200 shadow-md flex items-center gap-3 pointer-events-auto">
-          <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+          <div className={`w-3 h-3 rounded-full ${baseMap === BASE_MAP_TYPES.SATELLITE ? 'bg-cyan-500 animate-pulse' : 'bg-emerald-500'}`}></div>
           <div>
-            <h2 className="text-sm font-bold font-display tracking-tight text-slate-900 flex items-center gap-1.5">
+            <h2 className="text-sm font-bold font-display tracking-tight text-slate-900 flex items-center gap-2">
               <span>{title}</span>
-              <span className="text-[10px] uppercase font-bold text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded">
-                Leaflet GIS
+              <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded ${
+                baseMap === BASE_MAP_TYPES.SATELLITE 
+                  ? 'bg-cyan-100 text-cyan-800 border border-cyan-200' 
+                  : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+              }`}>
+                {baseMap === BASE_MAP_TYPES.SATELLITE ? 'Satellite Base' : 'Street Base'}
               </span>
             </h2>
             <p className="text-[11px] text-slate-500 hidden sm:block">
@@ -204,17 +225,52 @@ export default function GISMap({
           </div>
         </div>
 
-        {/* Top Right Utilities */}
+        {/* Top Right Controls: Quick Base Map Switcher + Sidebar Toggle + Reset */}
         <div className="flex items-center gap-2 pointer-events-auto">
+          
+          {/* Quick Base Map Switcher Pill */}
+          <div className="bg-white/95 backdrop-blur-md p-1 rounded-xl border border-slate-200 shadow-md flex items-center gap-1 text-xs">
+            <button
+              type="button"
+              id="basemap-toggle-street"
+              onClick={() => setBaseMap(BASE_MAP_TYPES.STREET)}
+              className={`px-3 py-1.5 rounded-lg font-semibold transition-all flex items-center gap-1.5 ${
+                baseMap === BASE_MAP_TYPES.STREET
+                  ? 'bg-[#0f2744] text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+              title="Switch to Street Map"
+            >
+              <MapIcon size={13} />
+              <span>Street</span>
+            </button>
+            <button
+              type="button"
+              id="basemap-toggle-satellite"
+              onClick={() => setBaseMap(BASE_MAP_TYPES.SATELLITE)}
+              className={`px-3 py-1.5 rounded-lg font-semibold transition-all flex items-center gap-1.5 ${
+                baseMap === BASE_MAP_TYPES.SATELLITE
+                  ? 'bg-emerald-700 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+              title="Switch to Satellite Imagery"
+            >
+              <Globe2 size={13} />
+              <span>Satellite</span>
+            </button>
+          </div>
+
           <button
+            type="button"
             onClick={() => setShowSidebar(!showSidebar)}
             className="bg-white/95 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:text-slate-900 shadow-md flex items-center gap-2 text-xs font-semibold transition-colors"
           >
-            <Layers size={15} className="text-emerald-600" />
+            <SlidersHorizontal size={14} className="text-emerald-600" />
             <span className="hidden sm:inline">{showSidebar ? 'Hide Controls' : 'Show Controls'}</span>
           </button>
 
           <button
+            type="button"
             onClick={handleResetView}
             className="bg-white/95 backdrop-blur-md p-2 rounded-xl border border-slate-200 text-slate-700 hover:text-slate-900 shadow-md transition-colors"
             title="Reset Map Center"
@@ -224,10 +280,79 @@ export default function GISMap({
         </div>
       </div>
 
-      {/* Collapsible Left Control Sidebar (Search + Layers + Legend) */}
+      {/* Collapsible Left Control Sidebar (Base Map + Search + Layers + Legend) */}
       {showSidebar && (
-        <div className="absolute top-20 left-4 z-20 w-72 sm:w-80 max-h-[calc(100%-110px)] overflow-y-auto space-y-3 pointer-events-auto animate-fade-in">
-          {/* Quick Search Panel */}
+        <div className="absolute top-20 left-4 z-20 w-72 sm:w-80 max-h-[calc(100%-110px)] overflow-y-auto space-y-3 pointer-events-auto animate-fade-in pr-0.5">
+          
+          {/* Base Map Selector Card */}
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 p-3.5 shadow-lg text-xs space-y-2.5">
+            <div className="flex items-center justify-between pb-1 border-b border-slate-100">
+              <span className="font-bold uppercase tracking-wider text-[11px] text-slate-700 flex items-center gap-1.5">
+                <Globe2 size={13} className="text-emerald-600" />
+                <span>Base Map Options</span>
+              </span>
+              <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
+                Selectable
+              </span>
+            </div>
+
+            {/* Base Map Radio Style Buttons */}
+            <div className="space-y-1.5">
+              <label
+                onClick={() => setBaseMap(BASE_MAP_TYPES.STREET)}
+                className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all border ${
+                  baseMap === BASE_MAP_TYPES.STREET
+                    ? 'bg-emerald-50/80 border-emerald-500 text-slate-900 font-semibold shadow-xs'
+                    : 'bg-slate-50 border-slate-100 text-slate-600 hover:bg-slate-100/70'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
+                    baseMap === BASE_MAP_TYPES.STREET
+                      ? 'border-emerald-600 bg-emerald-600'
+                      : 'border-slate-400 bg-white'
+                  }`}>
+                    {baseMap === BASE_MAP_TYPES.STREET && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                    )}
+                  </span>
+                  <div>
+                    <div className="text-xs font-bold text-slate-800">Street Map</div>
+                    <div className="text-[10px] text-slate-500">OpenStreetMap Carto Vector</div>
+                  </div>
+                </div>
+                <MapIcon size={14} className={baseMap === BASE_MAP_TYPES.STREET ? 'text-emerald-600' : 'text-slate-400'} />
+              </label>
+
+              <label
+                onClick={() => setBaseMap(BASE_MAP_TYPES.SATELLITE)}
+                className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all border ${
+                  baseMap === BASE_MAP_TYPES.SATELLITE
+                    ? 'bg-emerald-50/80 border-emerald-500 text-slate-900 font-semibold shadow-xs'
+                    : 'bg-slate-50 border-slate-100 text-slate-600 hover:bg-slate-100/70'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
+                    baseMap === BASE_MAP_TYPES.SATELLITE
+                      ? 'border-emerald-600 bg-emerald-600'
+                      : 'border-slate-400 bg-white'
+                  }`}>
+                    {baseMap === BASE_MAP_TYPES.SATELLITE && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                    )}
+                  </span>
+                  <div>
+                    <div className="text-xs font-bold text-slate-800">Satellite Imagery</div>
+                    <div className="text-[10px] text-slate-500">{currentBaseMap.sublabel}</div>
+                  </div>
+                </div>
+                <Globe2 size={14} className={baseMap === BASE_MAP_TYPES.SATELLITE ? 'text-emerald-600' : 'text-slate-400'} />
+              </label>
+            </div>
+          </div>
+
+          {/* Quick Search & Fly Panel */}
           <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200 p-3.5 shadow-lg text-xs space-y-2.5">
             <div className="flex items-center justify-between pb-1 border-b border-slate-100">
               <span className="font-bold uppercase tracking-wider text-[11px] text-slate-700 flex items-center gap-1.5">
@@ -251,6 +376,7 @@ export default function GISMap({
               <Search size={14} className="absolute left-2.5 top-2.5 text-slate-400" />
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => {
                     setSearchQuery('');
                     setShowSearchResults(false);
@@ -269,6 +395,7 @@ export default function GISMap({
                     return (
                       <button
                         key={p.propertyId}
+                        type="button"
                         onClick={() => {
                           selectAndCenterParcel(feat);
                           setShowSearchResults(false);
@@ -296,81 +423,102 @@ export default function GISMap({
             <div className="flex items-center justify-between pb-1 border-b border-slate-100">
               <span className="font-bold uppercase tracking-wider text-[11px] text-slate-700 flex items-center gap-1.5">
                 <Layers size={13} className="text-emerald-600" />
-                <span>Map Layer Stack</span>
+                <span>Map Layers</span>
               </span>
-              <span className="text-[10px] text-slate-400">5 Layers</span>
+              <span className="text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded font-mono">
+                Overlays
+              </span>
             </div>
 
             <div className="space-y-1.5">
+              {/* Cadastral Parcels */}
               <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={layers.cadastral}
                     onChange={() => handleToggleLayer('cadastral')}
-                    className="rounded text-emerald-600 focus:ring-emerald-500"
+                    className="rounded text-emerald-600 focus:ring-emerald-500 w-3.5 h-3.5 cursor-pointer"
                   />
                   <span className="font-semibold text-slate-800 text-[11px]">Cadastral Parcels</span>
                 </div>
                 <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">Active</span>
               </label>
 
+              {/* Survey Numbers */}
+              <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={layers.surveyNumbers}
+                    onChange={() => handleToggleLayer('surveyNumbers')}
+                    className="rounded text-sky-600 focus:ring-sky-500 w-3.5 h-3.5 cursor-pointer"
+                  />
+                  <span className="font-semibold text-slate-800 text-[11px]">Survey Numbers</span>
+                </div>
+                <span className="text-[10px] font-semibold text-sky-700 bg-sky-100 px-1.5 py-0.5 rounded">Labels</span>
+              </label>
+
+              {/* Roads */}
               <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={layers.roads}
                     onChange={() => handleToggleLayer('roads')}
-                    className="rounded text-amber-600 focus:ring-amber-500"
+                    className="rounded text-amber-600 focus:ring-amber-500 w-3.5 h-3.5 cursor-pointer"
                   />
-                  <span className="font-semibold text-slate-800 text-[11px]">Roads & Arterials</span>
+                  <span className="font-semibold text-slate-800 text-[11px]">Roads</span>
                 </div>
                 <span className="w-2 h-2 rounded-full bg-amber-500"></span>
               </label>
 
-              <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={layers.waterBodies}
-                    onChange={() => handleToggleLayer('waterBodies')}
-                    className="rounded text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="font-semibold text-slate-800 text-[11px]">Water Bodies & GO 111 FTL</span>
-                </div>
-                <span className="w-2 h-2 rounded-full bg-sky-500"></span>
-              </label>
-
-              <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={layers.landUse}
-                    onChange={() => handleToggleLayer('landUse')}
-                    className="rounded text-purple-600 focus:ring-purple-500"
-                  />
-                  <span className="font-semibold text-slate-800 text-[11px]">Master Plan Land Use</span>
-                </div>
-                <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-              </label>
-
+              {/* Buildings */}
               <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={layers.buildings}
                     onChange={() => handleToggleLayer('buildings')}
-                    className="rounded text-slate-700 focus:ring-slate-500"
+                    className="rounded text-slate-700 focus:ring-slate-500 w-3.5 h-3.5 cursor-pointer"
                   />
-                  <span className="font-semibold text-slate-800 text-[11px]">Building Footprints</span>
+                  <span className="font-semibold text-slate-800 text-[11px]">Buildings</span>
                 </div>
                 <span className="w-2 h-2 rounded-full bg-slate-700"></span>
+              </label>
+
+              {/* Water Bodies */}
+              <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={layers.waterBodies}
+                    onChange={() => handleToggleLayer('waterBodies')}
+                    className="rounded text-blue-600 focus:ring-blue-500 w-3.5 h-3.5 cursor-pointer"
+                  />
+                  <span className="font-semibold text-slate-800 text-[11px]">Water Bodies</span>
+                </div>
+                <span className="w-2 h-2 rounded-full bg-sky-500"></span>
+              </label>
+
+              {/* Land Use */}
+              <label className="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100/80 cursor-pointer transition-colors border border-slate-100">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={layers.landUse}
+                    onChange={() => handleToggleLayer('landUse')}
+                    className="rounded text-purple-600 focus:ring-purple-500 w-3.5 h-3.5 cursor-pointer"
+                  />
+                  <span className="font-semibold text-slate-800 text-[11px]">Land Use</span>
+                </div>
+                <span className="w-2 h-2 rounded-full bg-purple-500"></span>
               </label>
             </div>
           </div>
 
           {/* Map Legend */}
-          {showLegend && <MapLegend />}
+          <MapLegend baseMap={baseMap} />
         </div>
       )}
 
@@ -382,28 +530,32 @@ export default function GISMap({
         scrollWheelZoom={true}
         className="w-full h-full z-10"
       >
-        {/* OpenStreetMap Base Tile Layer */}
+        {/* Layer 1: Selectable Base Tile Layer (Street or Satellite) */}
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors • SIH 2026 Land Trust'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          maxZoom={19}
+          key={`basemap-${baseMap}`}
+          url={currentBaseMap.url}
+          attribution={currentBaseMap.attribution}
+          maxZoom={currentBaseMap.maxZoom}
+          minZoom={currentBaseMap.minZoom}
         />
 
         {/* Zoom controls at bottom right */}
         <ZoomControl position="bottomright" />
 
-        {/* Auxiliary Layers: Roads, Water Bodies, Land Use, Buildings */}
+        {/* Layer 2: Auxiliary Layers (Roads, Water Bodies, Land Use, Buildings) */}
         <AuxiliaryLayers layers={layers} />
 
-        {/* Primary Cadastral Parcel GeoJSON Layer */}
+        {/* Layer 3: Primary Cadastral Parcel GeoJSON Boundaries + Survey Numbers */}
         {layers.cadastral && (
           <ParcelLayer
+            baseMap={baseMap}
+            showSurveyNumbers={layers.surveyNumbers}
             selectedParcel={selectedParcel}
             onSelectParcel={handleSelectParcelFromMap}
           />
         )}
 
-        {/* Interactive Popup on Parcel Click */}
+        {/* Layer 4: Interactive Popup on Parcel Click */}
         {selectedParcel && popupPos && (
           <PropertyPopup
             parcel={selectedParcel}
@@ -419,7 +571,7 @@ export default function GISMap({
         />
       </MapContainer>
 
-      {/* Floating Property Info Drawer (Bottom Right or Side Panel on Selection) */}
+      {/* Floating Property Info Drawer (Side Panel on Selection) */}
       {selectedParcel && (
         <div className="absolute top-20 right-4 z-20 max-h-[85%] overflow-y-auto pointer-events-auto">
           <ParcelInfoDrawer
@@ -429,12 +581,16 @@ export default function GISMap({
         </div>
       )}
 
-      {/* Live Coordinate Display at Bottom Left */}
+      {/* Live Coordinate & Base Map Indicator at Bottom Left */}
       <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-200 shadow-md text-xs pointer-events-none">
         <Crosshair size={13} className="text-emerald-600" />
         <span className="font-mono text-[11px] text-slate-800">{mouseCoords}</span>
         <span className="text-slate-300">|</span>
-        <span className="text-[10px] text-slate-500 font-medium">EPSG:4326 (WGS 84)</span>
+        <span className="text-[10px] text-slate-600 font-medium">
+          {baseMap === BASE_MAP_TYPES.SATELLITE ? '🛰️ Satellite Imagery' : '🗺️ Street Map'}
+        </span>
+        <span className="text-slate-300">|</span>
+        <span className="text-[10px] text-slate-500 font-medium">EPSG:4326</span>
       </div>
     </div>
   );

@@ -108,3 +108,59 @@
 .land-trust-gis-popup .leaflet-popup-tip {
   background: white !important;
 }
+
+/* Survey number centroid badges */
+.survey-number-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.survey-number-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.survey-number-badge.satellite-mode {
+  background-color: rgba(15, 23, 42, 0.90);
+  color: #38bdf8;
+  border: 1.5px solid rgba(255, 255, 255, 0.90);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.survey-number-badge.street-mode {
+  background-color: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Base Map Attribution legibility styling */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  font-size: 10px !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15) !important;
+  max-width: 90vw;
+  line-height: 1.3 !important;
+}
+
+.leaflet-control-attribution a {
+  color: #0369a1 !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+}

@@ -25,10 +25,10 @@ export default function GisMapPage() {
           </p>
         </div>
 
-        {/* Phase 2 Interactive Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold self-start sm:self-auto">
-          <Globe2 size={14} className="text-emerald-600" />
-          <span>Phase 2: Leaflet & GeoJSON Cadastral Engine</span>
+        {/* Satellite & Cadastral Engine Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyan-50 text-cyan-900 border border-cyan-200 text-xs font-semibold self-start sm:self-auto">
+          <Globe2 size={14} className="text-cyan-700" />
+          <span>High-Res Satellite & Cadastral Engine</span>
         </div>
       </div>
 
@@ -36,7 +36,7 @@ export default function GisMapPage() {
       <GISMap
         initialParcelId={initialParcelId}
         title="CADASTRAL GIS MAP"
-        subtitle="Mandal: Serilingampally & Rajendranagar • OGC Compliant Cadastral Grid"
+        subtitle="Mandal: Serilingampally, Rajendranagar & Gandipet • Distributed Synthetic Cadastral Demo"
       />
 
       {/* Information & Key Instruction Card for SIH Judges */}
